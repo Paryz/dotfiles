@@ -1,149 +1,3 @@
-call plug#begin('~/.vim/plugged')
-
-" Coc-nvim 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" Editor plugs
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'itchyny/lightline.vim'
-Plug 'jreybert/vimagit'
-Plug 'Lokaltog/vim-easymotion'
-Plug 'tpope/vim-surround'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-update-rc' }
-Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-repeat'
-Plug 'jiangmiao/auto-pairs'
-Plug 'vim-test/vim-test'
-
-" Elixir & Erlang
-Plug 'elixir-editors/vim-elixir'
-Plug 'mhinz/vim-mix-format'
-let g:mix_format_on_save = 1
-Plug 'fishcakez/vim-erlang'
-
-" Elm
-Plug 'ElmCast/elm-vim'
-let g:elm_format_autosave = 1
-
-" Ruby
-Plug 'thoughtbot/vim-rspec'
-Plug 'aklt/plantuml-syntax'
-
-" Go
-Plug 'fatih/vim-go'
-let g:go_fmt_autosave = 1
-let g:go_metalinter_autosave = 0
-
-" Color themes
-Plug 'morhetz/gruvbox'
-Plug 'jnurmine/Zenburn'
-Plug 'petobens/colorish'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'NLKNguyen/papercolor-theme'
-
-"" Docker
-Plug 'ekalinin/Dockerfile.vim'
-
-" CSS syntax highlight
-Plug 'othree/csscomplete.vim'
-" Add Support css3 properties
-Plug 'hail2u/vim-css3-syntax'
-Plug 'cakebaker/scss-syntax.vim'
-" highlight hex colors in color
-au BufRead,BufNewFile *.scss set filetype=scss.css
-au BufRead,BufNewFile *.sass set filetype=sass.css
-" scss lint
-Plug 'gcorne/vim-sass-lint'
-
-""""""" Javascript
-" Syntax highlighting for .jsx (typescript)
-Plug 'peitalin/vim-jsx-typescript'
-"" Typescript "
-Plug 'leafgarland/typescript-vim'
-Plug 'Shougo/vimproc.vim', {
-\ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac.mak',
-\     'linux' : 'make',
-\     'unix' : 'gmake',
-\    },
-\ }
-
-Plug 'elzr/vim-json'
-let g:vim_json_syntax_conceal = 0
-" GraphQL syntax highlighting
-" Plug 'jparise/vim-graphql'
-" Plug 'posva/vim-vue'
-
-""""""" Brackets & Parentheses highlighting
-" Valloric/MatchTagAlways"
-nnoremap <leader>% :MtaJumpToOtherTag<cr>
-let g:mta_filetypes = {
-            \ 'html' : 1, 'xhtml' : 1, 'xml' : 1,
-            \ 'javascript' : 1,
-            \ 'javascript.jsx' : 1,
-            \ 'javascript.tsx' : 1,
-            \ 'typescript.tsx' : 1,
-            \ 'typescript' : 1
-            \}
-
-" C-m is synonymous with 'enter', so will cause enter key to lag
-let g:user_emmet_leader_key='<C-k>'
-let g:user_emmet_settings = {'javascript': {'extends': 'jsx'}}
-call plug#end()
-
-set hidden
-set encoding=utf-8  " Use utf-8 encoding
-set incsearch       " move while searching
-set laststatus=2    " always show the status line
-set report=0        " tell us when anything is changed via :...
-set scrolloff=10    " Keep 10 lines (top/bottom) for scope
-set showcmd         " show the command being typed
-set showmatch       " show matching brackets
-set backspace=indent,eol,start
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set expandtab                     " Tabs insert 2 space characters
-set virtualedit+=block            " Allow the cursor to go anywhere in visual block mode
-set relativenumber                " Relative line numbers
-set number                        " Line numbers [:set number!] to turn off
-set numberwidth=5                 " We are good up to 99999 lines
-set sidescrolloff=10              " Keep 5 lines at the size
-set list                          " Show whitespace and tabs
-set listchars=tab:\¦·,trail:·     " show tabs and trailing whitespace
-set clipboard=unnamed             " copy and paste with *
-set mouse=a                       " Scrollable term-vim
-set autoread
-" TextEdit might fail if hidden is not set.
-
-" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
-
-" Give more space for displaying messages.
-set cmdheight=2
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-set signcolumn=yes
-
-" Allow us to use Ctrl-s and Ctrl-q as keybinds
-silent !stty -ixon
-" Restore default behaviour when leaving Vim.
-autocmd VimLeave * silent !stty ixon
-map <C-s> :w <CR> :echo "Saved" <CR>
-imap <C-s> <Esc> :w <CR> :echo "Saved" <CR> i
-
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
@@ -289,34 +143,11 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 let mapleader = "\<Space>"
 
-" replace tabs with 4 whitespace
-" nmap <F4> :%s/\t/    /g<CR>
-autocmd FileType typescript.tsx,javascript.tsx,javascript,typescript nmap <Leader>s :%s/\t/  /g<CR>
-autocmd BufNewFile,BufRead *.ts,*.js set filetype=typescript.tsx
-autocmd BufNewFile,BufRead *.vue set filetype=vue.typescript
-autocmd FileType vue.typescript setlocal commentstring=//\ %s
-autocmd FileType typescript setlocal commentstring=//\ %s
-autocmd FileType json setlocal commentstring=//\ %s
-" autocmd FileType *.jsx,*.tsx setlocal commentstring=//\ %s
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
-
-""  buffers
-" nmap gt :bnext<CR>
-" nmap tg :bprevious<CR>
-map gn :bn<cr>
-map gp :bp<cr>
-nmap <Leader>b :Buffers<CR>
-nmap <Leader>bd :bp<bar>sp<bar>bn<bar>bd<CR>
 " open magit
 nmap <Leader>gs :Magit<CR>
 nmap tg :tabprevious<CR>
-
-""""""""""" window navigation
-nmap <silent> <C-k> :wincmd k<CR>
-nmap <silent> <C-j> :wincmd j<CR>
-nmap <silent> <C-h> :wincmd h<CR>
-nmap <silent> <C-l> :wincmd l<CR>
 
 """"""""""" clipboard copy and cut
 vmap <C-x> :!pbcopy<CR>
@@ -367,8 +198,3 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_tab_guides = 1
 " autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#243e48 ctermbg=237
 " autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#283e48 ctermbg=236
-
-
-""""""""""""" Color Schemes """"""""""""""""
-set termguicolors
-colorscheme heraldish
